@@ -7,14 +7,14 @@ function ImageUploadForm() {
   const [loading, setLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState<string>("");
 
-  // 選択されたファイルを変数に設定
+  // Set the selected file to the selectedFile state when a file is selected in the input field
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
     }
   };
 
-  // APIにファイルを送信
+  // Send the image file to the API
   const handleUpload = async () => {
     try {
       setLoading(true);
@@ -25,8 +25,9 @@ function ImageUploadForm() {
       const response = await axios.post(
         "http://127.0.0.1:8000/upload_image/",
         formData,
-        { responseType: "arraybuffer" } // バイナリデータを取得するためにresponseTypeを指定
+        { responseType: "arraybuffer" } // Determine the response type to get binary data
       );
+      // Convert the response into image url and set it to the imageSrc state
       const base64Img = btoa(
         new Uint8Array(response.data).reduce(
           (data, byte) => data + String.fromCharCode(byte),
@@ -44,7 +45,7 @@ function ImageUploadForm() {
   return (
     <>
       <div className="container">
-        <ImageDisplay imageUrl={imageSrc} />
+        <ImageDisplay imageUrl={imageSrc} loading={loading} />
         <div style={{ display: "flex", flexDirection: "row" }}>
           <input type="file" accept="image/*" onChange={handleFileInput} />
           <button disabled={!selectedFile || loading} onClick={handleUpload}>

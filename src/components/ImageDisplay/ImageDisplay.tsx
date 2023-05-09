@@ -1,20 +1,13 @@
-import { useState } from "react";
-
-function ImageDisplay({ imageUrl }: { imageUrl: string }) {
-  const [imageSize, setImageSize] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-
-  const handleImageLoad = (
-    e: React.SyntheticEvent<HTMLImageElement, Event>
-  ) => {
-    const img = e.currentTarget;
-    setImageSize({ width: img.width, height: img.height });
-  };
-
+function ImageDisplay({
+  imageUrl,
+  loading,
+}: {
+  imageUrl: string;
+  loading: boolean;
+}) {
   let displayStyle = "";
 
+  // Check if the image has been selected
   if (imageUrl === "") {
     displayStyle = "none";
   } else {
@@ -25,12 +18,34 @@ function ImageDisplay({ imageUrl }: { imageUrl: string }) {
     <div
       className="image-container"
       style={{
-        width: imageSize ? imageSize.width : undefined,
-        height: imageSize ? imageSize.height : undefined,
+        width: "100vw",
+        height: "100vh",
         display: displayStyle,
       }}
     >
-      <img src={imageUrl} alt="upload image" onLoad={handleImageLoad} />
+      {!loading && (
+        <img
+          src={imageUrl}
+          alt="upload image"
+          style={{
+            objectFit: "contain",
+            width: "100%",
+            height: "100%",
+          }}
+        />
+      )}
+      {loading && (
+        <div
+          style={{
+            objectFit: "contain",
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+          }}
+        >
+          <p style={{ paddingTop: "20%" }}>Loading...</p>
+        </div>
+      )}
     </div>
   );
 }
