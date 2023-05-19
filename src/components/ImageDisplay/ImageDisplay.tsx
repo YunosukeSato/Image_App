@@ -1,9 +1,9 @@
 function ImageDisplay({
   imageUrl,
-  loading,
-}: {
+}: // loading,
+{
   imageUrl: string;
-  loading: boolean;
+  // loading: boolean;
 }) {
   let displayStyle = "";
 
@@ -23,7 +23,7 @@ function ImageDisplay({
         display: displayStyle,
       }}
     >
-      {!loading && (
+      {
         <img
           src={imageUrl}
           alt="upload image"
@@ -33,8 +33,8 @@ function ImageDisplay({
             height: "100%",
           }}
         />
-      )}
-      {loading && (
+      }
+      {/* {loading && (
         <div
           style={{
             objectFit: "contain",
@@ -45,7 +45,7 @@ function ImageDisplay({
         >
           <p style={{ paddingTop: "20%" }}>Loading...</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
