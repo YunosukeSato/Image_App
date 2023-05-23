@@ -31,6 +31,28 @@ function ImageUploadForm() {
     setImageSrc(`data:image/jpg;base64,${image.data}`);
   };
 
+  return (
+    <>
+      <div className="container">
+        <ImageDisplay imageUrl={imageSrc} />
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          {/* <input type="file" accept="image/*" onChange={handleFileInput} />
+          <button disabled={!selectedFile || loading} onClick={handleUpload}>
+            Upload
+          </button> */}
+          {images.map((image, index) => (
+            <button key={index} onClick={() => handleSelect(image)}>
+              {image.filename}
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+
+
+  // Put previous code below for the reference
+
   // Send the image file to the API
   // const handleUpload = async () => {
   //   try {
@@ -58,25 +80,6 @@ function ImageUploadForm() {
   //     setLoading(false);
   //   }
   // };
-
-  return (
-    <>
-      <div className="container">
-        <ImageDisplay imageUrl={imageSrc} />
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          {/* <input type="file" accept="image/*" onChange={handleFileInput} />
-          <button disabled={!selectedFile || loading} onClick={handleUpload}>
-            Upload
-          </button> */}
-          {images.map((image, index) => (
-            <button key={index} onClick={() => handleSelect(image)}>
-              {image.filename}
-            </button>
-          ))}
-        </div>
-      </div>
-    </>
-  );
 }
 
 export default ImageUploadForm;

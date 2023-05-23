@@ -1,10 +1,4 @@
-function ImageDisplay({
-  imageUrl,
-}: // loading,
-{
-  imageUrl: string;
-  // loading: boolean;
-}) {
+function ImageDisplay({ imageUrl }: { imageUrl: string }) {
   let displayStyle = "";
 
   // Check if the image has been selected
@@ -34,18 +28,6 @@ function ImageDisplay({
           }}
         />
       }
-      {/* {loading && (
-        <div
-          style={{
-            objectFit: "contain",
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-          }}
-        >
-          <p style={{ paddingTop: "20%" }}>Loading...</p>
-        </div>
-      )} */}
     </div>
   );
 }
